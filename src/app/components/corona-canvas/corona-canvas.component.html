@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <div *ngIf="showCreatePopulationButton === true" class="btn-toolbar" id="canvasCoronaNav" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+          <button (click)="createPopulation()" class="btn btn-light">Create Population</button>
+        </div>
+        <div class="btn-group mr-2" role="group" aria-label="Second group">
+          <button (click)="play()" [disabled]="playing == true" class="btn btn-light">Play</button>
+        </div>
+        <div class="btn-group mr-2" role="group" aria-label="Third group">
+          <button (click)="stop()" [disabled]="playing == false" class="btn btn-light">Stop</button>
+        </div>
+      </div>
+
+      <canvas #canvas></canvas>
+    </div>
+    <div class="col-sm">
+      <div class="badge badge-primary text-wrap" style="width: 12rem;">
+        Time : {{epoch}}
+      </div>
+      <div class="badge badge-primary text-wrap" style="width: 12rem;">
+        Total Persons : {{totalPersons}}
+      </div>
+      <div class="badge badge-primary text-wrap" style="width: 12rem;">
+        Number Initial Infected : {{infectedPersons}}
+      </div>
+      <div class="badge badge-primary text-wrap" style="width: 12rem;">
+        Number Initial Stopped : {{stoppedPersons}}
+      </div>
+      <p>Infection Evolution</p>
+      <!--<ul class="list-group">
+        <li class="list-group-item">Time : {{epoch}}</li>
+        <li class="list-group-item">Total Persons : {{totalPersons}}</li>
+        <li class="list-group-item">Number Initial Infected : {{infectedPersons}}</li>
+        <li class="list-group-item">Number Initial Stopped : {{stoppedPersons}}</li>
+        <li class="list-group-item">Number Actual Infected : {{actualInfectedPersons}}</li>
+        <li class="list-group-item">Number Actual Healed : {{actualHealedPersons}}</li>
+        <li class="list-group-item">Number Actual Ok : {{actualOkPersons}}</li>
+        <li class="list-group-item">Number Actual Dead : {{actualDeadPersons}}</li>
+      </ul>-->
+
+      <div echarts theme="dark" [options]="optionCoronaInfection" [merge]="updateOptionCoronaInfection" class="chart"></div>
+      <p>Age Histogram</p>
+      <div echarts theme="dark" [options]="optionHistogramByAge" [merge]="updateOptionHistogramByAge" class="chart"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-12 mh-100 text-center">
+            <h3>Some explanations</h3>
+            <p>
+                <b>Time:</b> Imagine like "days"... constantly increasing... day 1... day 2... day 3...
+            </p>
+            <p>
+              <b>Total Persons:</b> Total population
+            </p>
+            <p>
+              <b>Number Initial Infected:</b> The number of peoples initialy infected. Does not showing symptons...
+            </p>
+            <p>
+              <b>Legend colors:</b> 
+              A <span [style.background-color]="okColor">green</span> person is a normal person (no infected).
+              A <span [style.background-color]="sickHiddenColor">yellow</span> person is a person without symptoms and the <span [style.background-color]="sickColor">red</span> one is with symptoms.
+              A <span [style.background-color]="healedColor">blue</span> person is a healed person (infected -> healed).
+              A <span [style.background-color]="deadColor">black</span> person is a dead person (infected -> dead).
+            </p>
+            <p>
+                <b>Number Initial Stopped:</b> The number of peoples that stay at home. Assuming people are fine. Not necessarily without access to other people.
+            </p>
+            <p>
+              <b>Age Histogram:</b> Population Age Histogram Chart 
+            </p>
+            <p>
+              <b>Infection Evolution:</b> Chart with the variation of people Normal, Infected, Healed and Dead in time.
+            </p>
+        </div>
+    </div>
+</div>
+

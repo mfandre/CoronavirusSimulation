@@ -1,0 +1,10 @@
+.container-fluid{
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background:white;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+}

@@ -1,0 +1,19 @@
+canvas{
+    border : 1px solid rgba(0,0,0,.125);
+    background: white;
+    margin: 0 auto;
+    display: block;
+}
+
+#canvasCoronaNav{
+    margin-top : 5px;
+    margin-bottom: 5px;
+}
+.chart{
+    height: 220px;
+}
+
+.container{
+    padding-top:30px;
+    padding-bottom: 40px;
+}
