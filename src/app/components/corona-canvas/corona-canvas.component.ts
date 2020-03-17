@@ -60,15 +60,6 @@ export class CoronaCanvasComponent implements OnInit {
   ngOnInit() {
     this.ctx = this.canvas.nativeElement.getContext('2d');
 
-    //just to better fitting the population in less area (and performance)
-    if(this.deviceService.isMobile()){
-      this.populationSize = 120;
-    }
-
-    if(this.deviceService.isTablet()){
-      this.populationSize = 170;
-    }
-
     this.setCanvasSize();
     this.createHistogramByAgeChart();
     this.createCoronaInfectionChart();

@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef, OnInit, NgZone } from '@angular/core'
 import { Person, Healthy } from './models/person';
 import { Random } from './utils/random';
 import { Subject } from 'rxjs';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 /*
 <table>
@@ -39,9 +40,19 @@ export class AppComponent implements OnInit {
   public personSize:number = 5;
   public populationSize:number = 300;
 
-  constructor() {}
+  constructor(private deviceService: DeviceDetectorService) {}
 
   ngOnInit() {
+    //just to better fitting the population in less area (and performance)
+    if(this.deviceService.isMobile()){
+      this.populationSize = 120;
+      this.tempPopulationSize = 120;
+    }
+
+    if(this.deviceService.isTablet()){
+      this.populationSize = 170;
+      this.tempPopulationSize = 170;
+    }
   }
 
   play(){
