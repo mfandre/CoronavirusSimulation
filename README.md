@@ -8,7 +8,7 @@ Is a project that simulates de spread of covid19 virus
 
 ## Executing (in or prompt)
 
->> npm start
+> npm start
 
 ## Access
 
