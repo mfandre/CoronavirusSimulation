@@ -1,6 +1,6 @@
 # Coronavirus
 
-Is a project that simulates de spread of covid19 virus
+Is a project that simulates the spread of covid19 virus
 
 ## Preview
 
