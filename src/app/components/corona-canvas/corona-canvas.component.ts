@@ -17,6 +17,7 @@ export class CoronaCanvasComponent implements OnInit {
   @Input() chanceOfInfect:number = 0.3;
   @Input() incubationTime:number = 140;
   @Input() healingTime:number = 300;
+  @Input() personSize:number = 5;
 
   private playSubscription: Subscription;
   @Input() playEvent: Observable<void>;
@@ -61,11 +62,11 @@ export class CoronaCanvasComponent implements OnInit {
 
     //just to better fitting the population in less area (and performance)
     if(this.deviceService.isMobile()){
-      this.populationSize = 100;
+      this.populationSize = 120;
     }
 
     if(this.deviceService.isTablet()){
-      this.populationSize = 150;
+      this.populationSize = 170;
     }
 
     this.setCanvasSize();
@@ -167,8 +168,8 @@ export class CoronaCanvasComponent implements OnInit {
     for(let i = 0; i < (numberOfPersons - numberPersonsInfected - numberPersonsStoped); i++){
       let vx = this.randomGenerator.getRandomInt(0,10)%2 == 0 ? 1 : -1; //50% chance
       let vy = this.randomGenerator.getRandomInt(0,10)%2 == 0 ? 1 : -1; //50% chance
-      let person = new Person(this.ctx, Healthy.ok, vx, vy, this.chanceOfInfect, this.incubationTime, this.healingTime);
-      person.setRandomPosition(this.worldWidth,this.worldHeight);
+      let person = new Person(this.ctx, this.personSize,Healthy.ok, vx, vy, this.chanceOfInfect, this.incubationTime, this.healingTime);
+      person.setRandomPosition();
       this.persons = this.persons.concat(person);
     }
 
@@ -176,8 +177,8 @@ export class CoronaCanvasComponent implements OnInit {
     for(let i = 0; i < numberPersonsInfected; i++){
       let vx = this.randomGenerator.getRandomInt(0,10)%2 == 0 ? 1 : -1;
       let vy = this.randomGenerator.getRandomInt(0,10)%2 == 0 ? 1 : -1;
-      let person = new Person(this.ctx, Healthy.sick_hidden, vx, vy, this.chanceOfInfect, this.incubationTime, this.healingTime);
-      person.setRandomPosition(this.worldWidth,this.worldHeight);
+      let person = new Person(this.ctx, this.personSize, Healthy.sick_hidden, vx, vy, this.chanceOfInfect, this.incubationTime, this.healingTime);
+      person.setRandomPosition();
       this.persons = this.persons.concat(person);
     }
 
@@ -185,8 +186,8 @@ export class CoronaCanvasComponent implements OnInit {
     for(let i = 0; i < numberPersonsStoped; i++){
       let vx = 0;
       let vy = 0;
-      let person = new Person(this.ctx, Healthy.ok, vx, vy, this.chanceOfInfect, this.incubationTime, this.healingTime);
-      person.setRandomPosition(this.worldWidth,this.worldHeight);
+      let person = new Person(this.ctx, this.personSize, Healthy.ok, vx, vy, this.chanceOfInfect, this.incubationTime, this.healingTime);
+      person.setRandomPosition();
       this.persons = this.persons.concat(person);
     }
     

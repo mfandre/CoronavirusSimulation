@@ -25,6 +25,18 @@
                 </div>
                 <form style="padding: 20px 0px 5px 0;">
                     <div class="form-group row">
+                        <label for="populationSize" class="col-sm-4 col-form-label">Population Size</label>
+                        <div class="col-sm-8">
+                            <input type="number" min="1" max="1000" class="form-control" name="populationSize" placeholder="200" [(ngModel)]="tempPopulationSize">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="personSize" class="col-sm-4 col-form-label">Person Size (size of dots on map)</label>
+                        <div class="col-sm-8">
+                            <input type="number" min="1" max="20" class="form-control" name="personSize" placeholder="5" [(ngModel)]="tempPersonSize">
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="chanceInfection" class="col-sm-4 col-form-label">Infection Chance (%)</label>
                         <div class="col-sm-8">
                             <input type="number" min="1" max="100" class="form-control" name="chanceInfection" placeholder="30" [(ngModel)]="tempChanceInfection">
@@ -82,7 +94,8 @@
     [stopEvent]="stopSubject.asObservable()"
     [resetEvent]="resetSubject.asObservable()"
     [showCreatePopulationButton]="false"
-    [populationSize]="200"
+    [populationSize]="populationSize"
+    [personSize]="personSize"
     [infectedPercent]="infectedPercent/100"
     [stoppedPercent]="stoppedPersons1/100"
     [chanceOfInfect]="chanceInfection/100"
@@ -99,7 +112,8 @@
     [stopEvent]="stopSubject.asObservable()"
     [resetEvent]="resetSubject.asObservable()"
     [showCreatePopulationButton]="false"
-    populationSize="200"
+    [populationSize]="populationSize"
+    [personSize]="personSize"
     [infectedPercent]="infectedPercent/100"
     [stoppedPercent]="stoppedPersons2/100"
     [chanceOfInfect]="chanceInfection/100"

@@ -33,11 +33,11 @@ export class Person extends Drawable{
     private infectionBehavior:InfectionBehavior;
     private randomGenerator:Random = new Random();
 
-    constructor(ctx: CanvasRenderingContext2D, health:Healthy, vx:number, vy:number,chanceOfInfect:number, incubationTime:number,healingTime:number) {
+    constructor(ctx: CanvasRenderingContext2D, size:number,health:Healthy, vx:number, vy:number,chanceOfInfect:number, incubationTime:number,healingTime:number) {
         super(ctx);
         this.id = this.randomGenerator.getNewGuid();
         this.age = this.randomGenerator.getRandomInt(1,96);
-        this.setSize(10);
+        this.setSize(size);
         this.setHealthy(health);
         this.velocityBehavior = new VelocityConstant(vx,vy);
         this.infectionBehavior = new NormalInfection(chanceOfInfect, incubationTime, healingTime);
@@ -69,9 +69,9 @@ export class Person extends Drawable{
         return this.health;
     }
 
-    public setRandomPosition(xMax:number,yMax:number){
-        this.setX(this.randomGenerator.getRandomInt(0,xMax));
-        this.setY(this.randomGenerator.getRandomInt(0,yMax));
+    public setRandomPosition(){
+        this.setX(this.randomGenerator.getRandomInt(0,this.ctx.canvas.clientWidth/this.getSize()));
+        this.setY(this.randomGenerator.getRandomInt(0,this.ctx.canvas.clientHeight/this.getSize()));
     }
 
     public setLifetime(time:number){

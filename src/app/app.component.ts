@@ -27,6 +27,8 @@ export class AppComponent implements OnInit {
   public tempStoppedPersons1:number = 70;
   public tempStoppedPersons2:number = 10;
   public tempInfectedPercent:number = 10;
+  public tempPersonSize:number = 5;
+  public tempPopulationSize:number = 300;
 
   public chanceInfection:number = 30;
   public incubationTime:number = 140;
@@ -34,6 +36,8 @@ export class AppComponent implements OnInit {
   public stoppedPersons1:number = 60;
   public stoppedPersons2:number = 30;
   public infectedPercent:number = 10;
+  public personSize:number = 5;
+  public populationSize:number = 300;
 
   constructor() {}
 
@@ -62,7 +66,7 @@ export class AppComponent implements OnInit {
 
   checkBetween(value:number, min:number, max:number, def:number = 50):number{
     if(value < min || value > max)
-      return 50;
+      return def;
     
     return value;
   }
@@ -74,6 +78,8 @@ export class AppComponent implements OnInit {
     this.stoppedPersons2 = this.checkBetween(this.tempStoppedPersons2,0,100);
     this.chanceInfection = this.checkBetween(this.tempChanceInfection,0,100);
     this.infectedPercent = this.checkBetween(this.tempInfectedPercent,0,100);
+    this.personSize = this.checkBetween(this.tempPersonSize,1,20,5);
+    this.populationSize = this.checkBetween(this.tempPopulationSize,0,1000,300);
 
     this.tempTimeToHeal = this.timeToHeal;
     this.tempIncubationTime = this.incubationTime;
@@ -81,6 +87,8 @@ export class AppComponent implements OnInit {
     this.tempStoppedPersons2 = this.stoppedPersons2;
     this.tempChanceInfection = this.chanceInfection;
     this.tempInfectedPercent = this.infectedPercent;
+    this.tempPersonSize = this.personSize;
+    this.tempPopulationSize = this.populationSize;
 
     this.resetSubject.next();
     this.editing = false;

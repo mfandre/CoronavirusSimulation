@@ -12,24 +12,23 @@ export class Drawable {
         yMax : 0
     };
     
-    constructor(private ctx: CanvasRenderingContext2D) {
-        var sizeWidth = ctx.canvas.clientWidth;
-        var sizeHeight = ctx.canvas.clientHeight;
-
+    constructor(protected ctx: CanvasRenderingContext2D) {
+        let sizeWidth = this.ctx.canvas.clientWidth;
+        let sizeHeight = this.ctx.canvas.clientHeight;
         this.width = sizeWidth;
         this.height = sizeHeight;
-
+        this.calculateBoundry();
+    }
+  
+    private calculateBoundry(){
         this.boundry = {
             xMin : 0,
             xMax : (this.width/this.z)-1,
             yMin : 0,
             yMax : (this.height/this.z)-1
         }
-
-        //console.log("sizeWidth",sizeWidth)
-        //console.log("sizeHeight",sizeHeight)
     }
-  
+
     protected setColor(color:string){
         this.color = color;
     }
@@ -73,6 +72,11 @@ export class Drawable {
 
     protected setSize(size:number){
         this.z = size;
+        this.calculateBoundry();
+    }
+
+    protected getSize():number{
+        return this.z;
     }
 
     /**
