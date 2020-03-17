@@ -6,7 +6,7 @@ Is a project that simulates de spread of covid19 virus
 
 ![Preview](preview.png)
 
-## Executing (in or prompt)
+## Executing (terminal or prompt)
 
 > npm start
 
