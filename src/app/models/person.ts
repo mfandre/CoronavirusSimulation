@@ -60,6 +60,22 @@ export class Person extends Drawable{
         }
     }
   
+    public getUniquePositionPersonId(){
+        return this.getUniquePositionId()
+    }
+
+    public getInfectionBehavior(){
+        return this.infectionBehavior;
+    }
+
+    public setVelocityBehavior(velocity_behavior:VelocityBehavior){
+        this.velocityBehavior = velocity_behavior;
+    }
+
+    public getVelocityBehavior(){
+        return this.velocityBehavior;
+    }
+
     public setHealthy(health:Healthy){
         this.health = health;
         this.setColor(this.getColorBasedOnHealthy());
@@ -126,8 +142,8 @@ export class Person extends Drawable{
         //updating symptoms of infection
         this.infectionBehavior.updateSymptoms(this);
 
-        //check colisions with other people
-        for(let i = 0;i<persons.length; i++){
+        //check collisions with other people
+        /*for(let i = 0;i<persons.length; i++){
             if(this.checkHitAnotherPerson(persons[i])){
                 //run infection behavior to simulate infections in other people
                 this.infectionBehavior.infect(this, persons[i]);
@@ -139,7 +155,7 @@ export class Person extends Drawable{
                 );
                 return;
             }
-        }
+        }*/
         
         //when hit the boundry limit I invert the velocity vector
         if (drawResult == -1){
