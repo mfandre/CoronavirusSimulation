@@ -3,6 +3,7 @@ import { Person, Healthy, HealthyColor } from '../../models/person';
 import { Random } from '../../utils/random';
 import { Observable, Subscription } from 'rxjs';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { VelocityConstant } from 'src/app/behaviors/velocity/velocity_constant';
 
 @Component({
   selector: 'corona-canvas',
@@ -48,6 +49,7 @@ export class CoronaCanvasComponent implements OnInit {
   style_width = 0;
   style_height = 0;
   actualCountByAge = {};
+  personsPositions = {};
 
   public optionHistogramByAge:any = {};
   public updateOptionHistogramByAge:any = undefined;
@@ -99,19 +101,76 @@ export class CoronaCanvasComponent implements OnInit {
     this.canvas.nativeElement.setAttribute('width', (this.style_width)+"");
   }
 
+  updatePersonsDictPosition() {
+    this.personsPositions = {}
+
+    for(let i = 0; i < this.persons.length; i++){
+      let positionId = this.persons[i].getUniquePositionPersonId()
+      if(this.personsPositions[positionId] == undefined){
+        this.personsPositions[positionId] = [this.persons[i]]
+      }else{
+        this.personsPositions[positionId].push(this.persons[i])
+      }
+    }
+  }
+
   tick() {
     this.epoch++;
-    let refreshStatisticsCounter = 20;
+    let refreshStatisticsCounter = 100;
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     this.persons.forEach((person: Person) => {
       person.move(this.persons);
+
       person.setLifetime(this.epoch);
       if(refreshStatisticsCounter-- <= 0){
         this.getStatistics();
-        refreshStatisticsCounter = 20;
+        refreshStatisticsCounter = 100;
       }
     });
+    this.checkInfection();
+    this.updatePersonsDictPosition();
+
     this.requestId = requestAnimationFrame(() => this.tick);
+  }
+
+  getSamePositionPersons(){
+    let list_persons_same_position = []
+    for (var prop in this.personsPositions) {
+      if (Object.prototype.hasOwnProperty.call(this.personsPositions, prop)) {
+          if(this.personsPositions[prop].length > 0){
+            list_persons_same_position.push(this.personsPositions[prop])
+          }
+      }
+    }
+
+    return list_persons_same_position;
+  }
+
+  checkInfection(){
+    //console.log("checkInfection")
+    //get array of persons in the same position
+    let persons_in_same_position = this.getSamePositionPersons()
+    //console.log("checkInfection: persons_in_same_position", persons_in_same_position)
+
+    if(persons_in_same_position == undefined || persons_in_same_position.length == 0){
+      //console.log("no colision")
+      return
+    }
+
+    for(let i = 0; i < persons_in_same_position.length; i++){
+      let person = persons_in_same_position[i][0]
+      //check collision
+      for(let j = 1; j < persons_in_same_position[i].length; j++){
+        person.getInfectionBehavior().infect(person, persons_in_same_position[i][j]);
+
+        //when hit someone has chance of 30% to change direction
+        person.setVelocityBehavior(new VelocityConstant(
+            (this.randomGenerator.getRandomInt(0,100) <= 30 ? 1 : -1)*person.getVelocityBehavior().getVx(),
+            (this.randomGenerator.getRandomInt(0,100) <= 30 ? 1 : -1)*person.getVelocityBehavior().getVy()
+        ));
+      }
+      
+    }
   }
 
   createPopulation(){
