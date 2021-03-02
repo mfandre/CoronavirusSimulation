@@ -3,6 +3,7 @@ export class Drawable {
     private x:number = 0;
     private y:number = 0;
     private z:number = 10;
+    private uniquePostionId = -1;
     private width = -1;
     private height = -1
     private boundry = {
@@ -20,6 +21,12 @@ export class Drawable {
         this.calculateBoundry();
     }
   
+    private calculateTempId(x, y){
+        this.uniquePostionId = 1/2 * (x + y) * (x + y+1) + y
+        //pairing function
+        //Math.pow(2,x)*Math.pow(3,y)
+    }
+
     private calculateBoundry(){
         this.boundry = {
             xMin : 0,
@@ -29,6 +36,10 @@ export class Drawable {
         }
     }
 
+    protected getUniquePositionId(){
+        return this.uniquePostionId
+    }
+
     protected setColor(color:string){
         this.color = color;
     }
@@ -36,6 +47,7 @@ export class Drawable {
     protected setPosition(x:number, y:number){
         this.x = x;
         this.y = y;
+        this.calculateTempId(x, y)
     }
 
     protected setX(x:number){
@@ -48,6 +60,8 @@ export class Drawable {
         else{
             this.x = x;
         }
+
+        this.calculateTempId(this.x, this.y)
     }
 
     protected setY(y:number){
@@ -60,6 +74,8 @@ export class Drawable {
         else{
             this.y = y;
         }
+
+        this.calculateTempId(this.x, this.y)
     }
 
     protected getX(){
